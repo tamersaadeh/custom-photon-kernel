@@ -23,14 +23,14 @@ echo "done"
 # Patch kernel
 echo -n "Patching kernel SPEC..."
 pushd photon > /dev/null
-find "$SOURCEDIR/patches/linux-spec" -type f -name *.patch -exec patch --no-backup-if-mismatch -p0 --fuzz=0 \< {} \;
+find "$SOURCEDIR/patches/linux-spec" -type f -name *.patch -exec patch --no-backup-if-mismatch -p0 --fuzz=0 -i {} \;
 popd > /dev/null
 echo "done"
 
 # Patch build script
 echo -n "Patching build script..."
 pushd photon > /dev/null
-find "$SOURCEDIR/patches/build-script" -type f -name *.patch -exec patch --no-backup-if-mismatch -p0 --fuzz=0 \< {} \;
+find "$SOURCEDIR/patches/build-script" -type f -name *.patch -exec patch --no-backup-if-mismatch -p0 --fuzz=0 -i {} \;
 popd > /dev/null
 echo "done"
 
