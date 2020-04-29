@@ -1,6 +1,6 @@
 --- tools/scripts/build_spec.sh	2020-04-28 22:12:06.000000000 +0200
 +++ tools/scripts/build_spec.sh	2020-04-29 02:26:14.000000000 +0200
-@@ -88,6 +92,7 @@
+@@ -88,6 +94,7 @@
  function prepare_buildenv() {
    run "Create source folder" in_sandbox mkdir -p /usr/src/photon/SOURCES
    run "Copy sources from $SPECDIR" docker cp $SPECDIR/. $CONTAINER:/usr/src/photon/SOURCES

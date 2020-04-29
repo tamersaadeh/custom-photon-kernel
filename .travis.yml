@@ -3,6 +3,10 @@ language: generic
 services:
   - docker
 
+# don't patch script with mac compatibility when running on linux systems
+before_script:
+- rm patches/build-script/90-add-mac-compat.patch
+
 script:
  - ./build-custom-kernel.sh
 
