@@ -1,0 +1,14 @@
+language: generic
+
+services:
+  - docker
+
+script:
+ - ./build-custom-kernel.sh
+
+deploy:
+  provider: releases
+  edge: true
+  file: stage/RPMS/x86_64/*.rpm
+#  on:
+#    tags: true
