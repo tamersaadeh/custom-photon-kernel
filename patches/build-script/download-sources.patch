@@ -1,0 +1,11 @@
+--- tools/scripts/build_spec.sh	2020-04-28 22:12:06.000000000 +0200
++++ tools/scripts/build_spec.sh	2020-04-29 02:26:14.000000000 +0200
+@@ -96,7 +101,7 @@
+ 
+ function build() {
+   echo -ne "\tRun rpmbuild " >&3
+-  docker exec $CONTAINER rpmbuild -bb --define "dist .ph$VERSION" /usr/src/photon/SOURCES/$SPECFILE &
++  docker exec $CONTAINER rpmbuild -bb --define "dist .ph$VERSION" --undefine=_disable_source_fetch /usr/src/photon/SOURCES/$SPECFILE &
+   wait_for_result
+ }
+ 

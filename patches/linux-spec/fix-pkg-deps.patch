@@ -1,0 +1,11 @@
+--- SPECS/linux/linux-esx.spec	2020-04-28 22:12:54.000000000 +0200
++++ SPECS/linux/linux-esx.spec	2020-04-29 09:34:37.000000000 +0200
+@@ -98,6 +98,8 @@
+ BuildRequires: openssl-devel
+ BuildRequires: procps-ng-devel
+ BuildRequires: lz4
++BuildRequires: gmp-devel
++BuildRequires: mpfr-devel
+ Requires:      filesystem kmod
+ Requires(post):(coreutils or toybox)
+ Requires(postun):(coreutils or toybox)

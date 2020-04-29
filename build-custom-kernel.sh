@@ -30,7 +30,7 @@ echo "done"
 # Patch build script
 echo -n "Patching build script..."
 pushd photon > /dev/null
-find "$SOURCEDIR/patches/build-scrip" -type f -name *.patch -exec patch --no-backup-if-mismatch -p0 --fuzz=0 \< {} \;
+find "$SOURCEDIR/patches/build-script" -type f -name *.patch -exec patch --no-backup-if-mismatch -p0 --fuzz=0 \< {} \;
 popd > /dev/null
 echo "done"
 

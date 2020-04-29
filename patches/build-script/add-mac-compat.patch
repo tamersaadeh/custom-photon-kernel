@@ -1,0 +1,39 @@
+--- tools/scripts/build_spec.sh	2020-04-28 22:12:06.000000000 +0200
++++ tools/scripts/build_spec.sh	2020-04-29 02:26:14.000000000 +0200
+@@ -7,12 +7,16 @@
+ KEEP_SANDBOX_AFTER_FAILURE=1
+ 
+ # Draw spinner while waiting
+-DRAW_SPINNER=1
++DRAW_SPINNER=0
+ 
+ test "$#" -ne 1 && echo "Usage: $0 spec-file-to-build.spec" && exit 1
+ 
++command -v realpath >/dev/null 2>&1 || function realpath() {
++    [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
++}
++
+ CONTAINER=build_spec
+-SPECPATH=$(readlink -m $1)
++SPECPATH=$(realpath $1)
+ SPECFILE=$(basename $SPECPATH)
+ SPECDIR=$(dirname $SPECPATH)
+ mkdir -p $SPECDIR/stage/LOGS
+@@ -60,12 +64,13 @@
+   docker ps -f "name=$CONTAINER" && docker rm -f $CONTAINER
+   docker inspect --format='{{.Created}}' photon_build_spec:$VERSION.0
+   local status=$?
+-  local cdate=$(date --date=`docker inspect --format='{{.Created}}' photon_build_spec:$VERSION.0` '+%s')
++  local ddate=$(docker inspect --format='{{.Created}}' photon_build_spec:$VERSION.0)
++  local cdate=$(date -jf '%Y-%m-%dT%H:%M:%S' ${ddate%%.*} '+%s')
+   # image exists?
+   if [ $status -eq 0 ]; then
+     local vdate=$((`date '+%s'` - 1209600))
+     # image is less then 2 weeks
+-    if [ $cdate -gt $vdate ]; then
++    if [[ $cdate -gt $vdate ]]; then
+       # use this image
+       run "Use local build template image" docker run -d --name $CONTAINER --network="host" photon_build_spec:$VERSION.0 tail -f /dev/null
+       return 0
+
+ 
